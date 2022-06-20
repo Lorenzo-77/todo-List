@@ -1,0 +1,72 @@
+<div class="row">
+  <h2>Listas &amp; Items </h2> 
+  {{#each lista}}
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+  <button type="text" class="btn btn-outline-warning">Ordenar</button>
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop2" type="button" class="btn btn-outline-warning dropdown-toggle" 
+    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2" style="">
+      <a class="dropdown-item" href="/ordenarfCreacion/{{id_lista}}">fecha de creación</a>
+      <a class="dropdown-item" href="/ordenarflimite/{{id_lista}}">fecha límite</a>
+      <a class="dropdown-item" href="/ordenarPrioridad/{{id_lista}}">prioridad</a>
+    </div>
+  </div>
+</div>
+  </div>
+  <div class="d-flex flex-row bd-highlight mb-3">
+    <div class=" col-md-3">
+     
+      <div class="card border-warning mb-3" style="max-width: 15rem;">
+        <div class="card-body">
+          <h4 class="card-title d-flex justify-content-between align-items-center">
+            {{titleList}}
+          </h4>
+          <p>{{estado}}</p>
+        </div>
+      </div>
+      </div>
+        <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+             <th scope="col">Titulo</th>
+             <th scope="col">Fecha de creación</th>
+             <th scope="col">Fecha de resolución</th>
+             <th scope="col">Prioridad</th>
+             <th scope="col">Estado</th>
+             <th scope="col">Opciones</th>
+         </tr>
+        </thead>
+    <tbody>
+    {{#each ../item}}
+    <tr>
+      <td>{{titulo}}</td>
+      <td>{{moment fechaCreacion format="DD/MM/YYYY"}}</td>
+      <td>{{moment fechaResolucion format="DD/MM/YYYY"}}</td>
+      <td>{{prioridad}}</td>
+      <td>{{estado}}</td>
+          <td class="flex">
+            <a href="/tasks/expel/{{id}}" class="bg-red-800 text-white px-3 py-1 rounded-sm">
+              <i class="fas fa-trash"></i></a> 
+              &nbsp;&nbsp;
+            <a href="/tasks/edit/{{id}}" class="bg-green-800 text-white px-3 py-1 rounded-sm">
+              <i class="fas fa-pen"></i></a>
+          </td>
+    </tr>
+  {{/each}}
+  </tbody>
+  </table>
+  </div>
+  {{else}}
+    <!--Crear nueva Lista-->
+    <div class="col-md-4 mx-auto">
+      <div class="card text-center">
+        <div class="card-body">
+          <p class="lead">No hay Listas</p>
+          <a href="/createLista" class="btn btn-success btn-block">Crear Lista</a>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>

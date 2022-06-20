@@ -1,0 +1,40 @@
+<h1>Items</h1>
+<table class="table table-dark table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Titulo</th>
+      <th scope="col">Fecha de creación</th>
+      <th scope="col">Fecha de resolución</th>
+      <th scope="col">Descripcion</th>
+      <th scope="col">Prioridad</th>
+      <th scope="col">Fecha limite</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each item}}
+    <tr>
+      <td>{{titulo}}</td>
+      <td>{{moment fechaCreacion format="DD/MM/YYYY"}}</td>
+      <td>{{moment fechaResolucion format="DD/MM/YYYY"}}</td>
+      <td>{{descripcion}}</td>
+      <td>{{prioridad}}</td>
+      <td>{{moment fechaLimite format="DD/MM/YYYY"}}</td>
+      <td>{{estado}}</td>
+          <td class="flex">
+            <form action="/tasks/delete" method="POST" class="mx-2">
+              <input type="hidden" value="{{id}}" name="id">
+              <button class="bg-red-800 text-white px-3 py-1 rounded-sm" type="submit">
+                <i class="fas fa-trash"></i></button>
+            </form>
+            <a href="/tasks/edit-add/{{id}}" class="bg-blue-700 text-white px-3 py-1 rounded-sm" >
+              <i class="fa-solid fa-plus"></i></a>
+              &nbsp;&nbsp;
+              <a href="/tasks/edit/{{id}}" class="bg-green-800 text-white px-3 py-1 rounded-sm">
+              <i class="fas fa-pen"></i></a>
+          </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
