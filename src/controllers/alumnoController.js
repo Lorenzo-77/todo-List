@@ -1,17 +1,37 @@
 ////// ITEMS //////🦖🦖🦖
 function index(req, res) {
     req.getConnection((err, conn) => {
-      conn.query('SELECT * FROM item WHERE idUser = ?',[req.user.id], (err, item) => {
+      req.getConnection((err, conn) => {
+        conn.query(`SELECT idHorarios, idAlum, materiasID, idMateria, profeCargo, idProfe, horaInicioLunes, horaFinLunes, lunes, 
+        horaInicioMartes, horaFinMartes, martes, horaInicioMiercoles, horaFinMiercoles, miercoles, horaInicioJueves, horaFinJueves, 
+        jueves, horaInicioViernes, horaFinViernes, viernes, profesores.nombre, profesores.apellido, nombreMateria FROM horarios, materias, 
+        profesores, alumnos WHERE materiasID = idMateria AND profeCargo = idProfe AND idAlum = ? `, [req.user.idAlum], (err, materias) => {
+
+          conn.query(`SELECT DISTINCT nombreMateria AS NM FROM inscripciones, materias 
+          WHERE profeCargo = profesorId AND materiaId = idMateria AND  alumnoId = ? `, [req.user.idAlum], (err, nMateria) => {
+          if(err) {
+            res.json(err);
+          }
+          res.render('materias/verMaterias', { materias, nMateria });
+        });
+      });
+    });
+  });
+}
+
+  function inscribir(req, res) {
+    const {id} = req.params;
+    console.log(id);
+    req.getConnection((err, conn) => {
+      conn.query('SELECT * FROM item WHERE id = ? ', [id], (err, item) => {
+        conn.query('SELECT * FROM lista WHERE idUser = ?',[req.user.id], (err, lista) => {
         if(err) {
           res.json(err);
         }
-        res.render('tasks/todo', { item });
+        res.render('tasks/edit-add', { item, lista });
       });
     });
-  }
-
-  function create(req, res) {
-    res.render('tasks/create');
+  });
   }
   
   function store(req, res) {
@@ -27,7 +47,7 @@ function index(req, res) {
       });
     });
   }
-  
+  /*
   function destroy(req, res) {
     const id = req.body.id;
     req.getConnection((err, conn) => {
@@ -85,15 +105,15 @@ function index(req, res) {
         res.redirect('/tasks');
       });
     });
-  }
+  }*/
 
   module.exports = {
     index: index,
-    create: create,
+    inscribir: inscribir,
     store: store,
-    destroy: destroy,
+    /*destroy: destroy,
     edit: edit,
     update: update,
     editadd: editadd,
-    updateadd: updateadd,
+    updateadd: updateadd,*/
   }

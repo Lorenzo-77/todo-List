@@ -10,13 +10,12 @@ const morgan = require('morgan');
 const MySQLStore = require('express-mysql-session')(session);
 
 const loginRoutes = require('./routes/login');
-const listRoutes = require('./routes/lists');
-const itemsRoutes = require('./routes/items');
-const categoriRutes = require('./routes/categoria');//
-
+const coordinadorRoutes = require('./routes/coordinador');//
+const routerAlumno = require('./routes/alumnos');
+const routerProfe = require('./routes/profesor');
+const routerAsistencia = require('./routes/asistencia');
 const { database } = require('./keys');
 
-//const { redirect } = require('express/lib/response');
 require('./lib/passport');
 
 var Handlebars = require("handlebars");
@@ -37,6 +36,7 @@ app.use(bodyParser.json());
 app.set('views', __dirname + '/views');
 app.engine('.hbs', engine({
   extname: '.hbs',
+  helpers: require('./lib/handlebars')
 }));
 app.set('view engine', 'hbs');
 
@@ -44,7 +44,7 @@ app.use(myconnection(mysql, {
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'to-do' //
+  database: 'to-do' //to-do
 }, 'single'));
 
 app.use(session({
@@ -67,9 +67,11 @@ app.listen(app.get('port'), () => {
 });
 
 
-app.use('/', itemsRoutes);
+
 app.use('/', loginRoutes);
-app.use('/', listRoutes);
-app.use('/', categoriRutes);
+app.use('/', coordinadorRoutes);
+app.use('/', routerAlumno);
+app.use('/', routerProfe);
+app.use('/', routerAsistencia);
 
 app.use(express.static(path.join(__dirname, 'public')));

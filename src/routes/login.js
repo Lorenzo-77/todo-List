@@ -30,7 +30,7 @@ routerLogin.post('/register', passport.authenticate('local.registrate', {
   });
 
 routerLogin.get('/profile', isLoggedIn, (req, res) => {
-    res.render('profile');
+  res.render('profile');//res.render('crear/profileCoordinador') testing
   });
 
 module.exports = routerLogin;

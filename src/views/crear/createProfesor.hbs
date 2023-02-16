@@ -2,15 +2,15 @@
     <div class="col-md-4 mx-auto">
         <div class="card text-center">
             <div class="card-header">
-                Registra tu Cuenta
+               Crear Profesor
             </div>
             <div class="card-body">
-                <form action="/register" method="POST">
+                <form action="/crearProfesor" method="POST">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="{{name}}">
+                        <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="{{nombre}}">
                     </div>      
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="apellido" placeholder="Apellido" value="{{name}}">
+                        <input type="text" class="form-control" name="apellido" placeholder="Apellido" value="{{apellido}}">
                     </div>
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" name="email" placeholder="E-Mail" value="{{email}}">
@@ -31,3 +31,8 @@
         </div>
     </div>
 </div>
+<script>
+    function profesorCreado() {  
+        alert("¡Profesor Creado!");
+     } 
+</script>
